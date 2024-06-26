@@ -13,7 +13,7 @@ export async function POST(req, res) {
       cookies().set('expert ', user._id)
       console.log("Successfully logged in");
       console.log({ message: 'Success', userID: user._id });
-      return NextResponse.json({ message: 'Success', teacherID: user._id }, { status: 200 });
+      return NextResponse.json({ message: 'Success', ExpertID: user._id }, { status: 200 });
     } else {
       return NextResponse.json({ message: 'Invalid username or password' }, { status: 401 });
     }

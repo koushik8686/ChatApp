@@ -3,12 +3,21 @@ const Expert = require('../../../../models/expertmodel');
 const Chat = require('../../../../models/chatmodel'); // Import the Chat model
 const connectMongoDB = require('../../../../libs/mongodb');
 import { NextResponse } from 'next/server';
+var nodemailer = require('nodemailer');
+
+const email = "hexart637@gmail.com";
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: email,
+    pass: 'ovss zdzg ktkf rptu'
+  }
+});
 
 export async function POST(request) {
   await connectMongoDB();
   try {
     const { userID, expertID } = await request.json();
-    console.log(userID, expertID);
     
     // Find the user by ID
     const user = await User.findOne({ _id: userID });
@@ -75,6 +84,26 @@ export async function POST(request) {
     // Save the updated user and expert objects
     await user.save();
     await expert.save();
+
+    // Send email to the user
+    var mailOptions = {
+      from: email,
+      to: user.email, // Assuming user object has an email field
+      subject: 'Request Accepted',
+      html: `<h3>Request Accepted</h3>
+      <p>Your request to chat with ${expert.username} has been accepted.</p>
+      <h5>Chat Details :</h5>
+      <p>Expert Name: ${expert.username}</p>
+      <p>Chat ID: ${savedChat._id}</p>
+      <p>Timestamp: ${new Date().toLocaleString()}</p>`
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+      }
+    });
 
     return NextResponse.json({ message: 'Request accepted successfully', chatId: savedChat._id }, { status: 200 });
   } catch (error) {

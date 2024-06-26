@@ -95,14 +95,7 @@ export default function Chats() {
   return (
     <div className="container mx-auto mt-8 px-4">
       {currentChat ? (
-        <div className="chat-box bg-white p-6 rounded-lg shadow-lg">
-          <button
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-            onClick={disconnect}
-          >
-            Back
-          </button>
-          <h3 className="text-lg font-semibold mt-4 mb-2">Chat Room: {currentChat}</h3>
+        <div className="chat-box bg-white p-6 rounded-lg shadow-lg">     
           <div className="messages space-y-4 overflow-y-auto max-h-72">
             {messages.map((msg, index) => (
               <div
@@ -135,6 +128,12 @@ export default function Chats() {
             >
               Send
             </button>
+            <button
+            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+            onClick={disconnect}
+          >
+            Back
+          </button>
           </div>
         </div>
       ) : (

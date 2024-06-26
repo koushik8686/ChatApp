@@ -89,10 +89,7 @@ export default function Page() {
     });
 
     newSocket.on("last_10_msgs", (data) => {
-      console.log("data receivrd ",data);
       setMessages(data);
-      console.log( "messages", messages);
-      console.log("yo");
     });
 
     return () => {
@@ -156,7 +153,6 @@ export default function Page() {
       <div className="container mx-auto mt-8 px-4">
         {currentChat ? (
           <div className="chat-box border p-4 rounded shadow-lg">
-            <h3 className="text-lg font-semibold mb-4">Chat Room: {currentChat}</h3>
             <div className="messages space-y-4 mb-4" style={{ maxHeight: '400px', overflowY: 'auto' }}>
               {messages.map((msg, index) => (
                 <div key={index} className={`message flex ${msg.sent_by === expert._id ? 'justify-end' : 'justify-start'}`}>

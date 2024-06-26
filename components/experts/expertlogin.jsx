@@ -87,7 +87,7 @@ export default function Login() {
     console.log(data);
     if (data.message === 'Success') {
       // Assuming `data.userID` contains the user ID you want to redirect to
-      return router.push(`/expert/${data.teacherID}`); // Change to absolute URL if necessary
+      return router.push(`/expert/${data.ExpertID}`); // Change to absolute URL if necessary
     } else {
       setContent(data.message);
     }
@@ -181,12 +181,12 @@ export default function Login() {
       <div className={styles['toggle-container']}>
         <div className={styles.toggle}>
           <div className={`${styles['toggle-panel']} ${styles['toggle-left']}`}>
-            <h1>Teacher</h1>
+            <h1>Expert</h1>
             <p>Already have an account?</p>
             <button className={styles.hidden} id="login" onClick={handleLoginClick}>Sign In</button>
           </div>
           <div className={`${styles['toggle-panel']} ${styles['toggle-right']}`}>
-            <h1>Teacher Account</h1>
+            <h1>Expert Account</h1>
             <p>Dont have an account ?</p>
             <button className={styles.hidden} id="register" onClick={handleRegisterClick}>Sign Up</button>
           </div>

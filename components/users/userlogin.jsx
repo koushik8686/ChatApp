@@ -119,7 +119,7 @@ export default function Login() {
     <div className={styles.body}>
     <div className={`${styles.container} ${isLoginActive ? '' : styles.active}`} id="container">
       <div className={`${styles['form-container']} ${styles['sign-up']}`}>
-        <form onSubmit={handleSignup}>
+        <form className={`${styles.form}`}  onSubmit={handleSignup}>
           <h1>Create Account</h1>
           <span>or use your email for registration</span>
           <input
