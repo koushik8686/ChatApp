@@ -36,21 +36,17 @@ This project is a chat application that allows users to connect with experts in 
     ```bash
     npm install
     ```
-
-3. **Environment Variables:**
-
-    Create a `.env` file in the root of the project and add the following environment variables:
-
-    ```env
-    MONGODB_URI=your_mongodb_connection_string
-    EMAIL_USER=your_email@example.com
-    EMAIL_PASS=your_email_password
-    ```
-
-4. **Run the Application:**
+    
+3. **Run the Application:**
 
     ```bash
     npm run dev
+    ```
+    now start the backend server
+
+    ```bash
+    cd ./backend
+    nonde server.js
     ```
 
 ## Directory Structure
