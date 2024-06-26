@@ -1,36 +1,57 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chat Application
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is a chat application that allows users to connect with experts in real-time. Users can send requests to experts, and once accepted, both parties can engage in a chat. The application also sends email notifications to users when their requests are accepted.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Users can send requests to connect with experts.
+- Experts can accept or reject connection requests.
+- Once accepted, a chat session is created between the user and the expert.
+- Email notifications are sent to users when their requests are accepted.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- Next.js
+- Socket.io
+- Nodemailer
 
-## Learn More
+## Setup Instructions
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the Repository:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    git clone https://github.com/yourusername/your-repo.git
+    cd your-repo
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Install Dependencies:**
 
-## Deploy on Vercel
+    ```bash
+    npm install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Environment Variables:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    Create a `.env` file in the root of the project and add the following environment variables:
+
+    ```env
+    MONGODB_URI=your_mongodb_connection_string
+    EMAIL_USER=your_email@example.com
+    EMAIL_PASS=your_email_password
+    ```
+
+4. **Run the Application:**
+
+    ```bash
+    npm run dev
+    ```
+
+## Directory Structure
+
