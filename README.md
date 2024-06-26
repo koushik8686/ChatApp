@@ -48,6 +48,10 @@ This project is a chat application that allows users to connect with experts in 
     cd ./backend
     nonde server.js
     ```
+4. **Open the Application:**
+
+Open your browser and go to [http://localhost:3000](http://localhost:3000) to access the chat application.
+
 
 ## Directory Structure
 
