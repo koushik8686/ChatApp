@@ -26,16 +26,7 @@ export default function Expertrnav(params) {
              <button className='text-red-600 hover:text-red cursor-pointer' onClick={handleLogout}>Logout</button>
             </div>
             <div className="flex items-center">
-              <form className="flex space-x-2">
-                <input
-                  type="text"
-                  className="px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                  placeholder="Search"
-                />
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:border-blue-300">
-                  Search
-                </button>
-              </form>
+          
             </div>
           </div>
         </div>

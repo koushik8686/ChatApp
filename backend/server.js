@@ -6,7 +6,7 @@ const httpServer = http.createServer();
 const connectmongodb = require("../libs/mongodb")
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000", // Replace with your frontend URL
+    origin: "http://localhost:3000", //  frontend URL
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,
@@ -40,7 +40,13 @@ io.on("connection", (socket) => {
     //This will send a message to a specific room ID
     const chat = await Chats.findOneAndUpdate(
       { _id: data.roomId },
-      { $push: { messages: { message: data.message, time: data.time, sent_by: data.sent_by ,name:data.name } } },
+      { $push: { 
+          messages: { message: data.message,
+          time: data.time,
+          sent_by: data.sent_by ,
+          name:data.name }
+         } 
+      },
       { new: true, upsert: true }
     );
     socket.to(data.roomId).emit("receive_msg", data);

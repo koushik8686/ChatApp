@@ -9,7 +9,6 @@ export async function GET(request) {
     await Experts.find().then((arr)=>{Expertlist=arr})
     return NextResponse.json({ Expertlist });
   } catch (error) {
-    console.error('Error creating user:', error);
     return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
 }

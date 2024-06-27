@@ -1,14 +1,17 @@
 'use client'
 
-import React from 'react'
-import Usernav from '../usernav'
-import { useState ,useEffect } from 'react';
+import React from 'react';
+import Usernav from '../usernav';
+import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-export default function Experts()  {
-  const params= useParams()
-  const [successfulRequests, setSuccessfulRequests] = useState([]);
-  const [experts, setExperts] = useState([]); // variablle for experts
-  const [user, setuser] = useState({});  // variablle for users
+
+export default function Experts() {
+  const params = useParams(); // Retrieve URL parameters
+  const [successfulRequests, setSuccessfulRequests] = useState([]); // Track successful requests
+  const [experts, setExperts] = useState([]); // State variable for experts list
+  const [user, setuser] = useState({}); // State variable for user information
+
+  // Fetch list of experts
   const fetchExperts = async () => {
     try {
       const response = await fetch('/api/expert/experts');
@@ -21,19 +24,22 @@ export default function Experts()  {
       console.error('Error fetching experts:', error);
     }
   };
+
+  // Fetch user information based on URL parameter
   const fetchuser = async () => {
     try {
       const response = await fetch(`/api/user/${params.id}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch experts');
+        throw new Error('Failed to fetch user');
       }
       const data = await response.json();
       setuser(data.user);
     } catch (error) {
-  
-      console.error('Error fetching experts:', error);
+      console.error('Error fetching user:', error);
     }
   };
+
+  // Generate a random gradient for styling
   const getRandomGradient = () => {
     const colors = [
       '#ff9a9e', '#fad0c4', '#fad0c4', '#ff9a9e',
@@ -56,12 +62,14 @@ export default function Experts()  {
     const randomIndex = () => Math.floor(Math.random() * colors.length);
     return `linear-gradient(to right, ${colors[randomIndex()]}, ${colors[randomIndex()]})`;
   };
-  
+
+  // Fetch experts and user information on component mount
   useEffect(() => {
     fetchExperts();
     fetchuser();
   }, []);
-  
+
+  // Handle chat request
   const handleRequestChat = async (expertId, username) => {
     try {
       const response = await fetch(`/api/expert/request`, {
@@ -72,22 +80,21 @@ export default function Experts()  {
         body: JSON.stringify({
           expertID: expertId,
           expertname: username,
-          userID: params.id, 
+          userID: params.id,
         }),
       });
-
       if (!response.ok) {
         throw new Error('Failed to send request');
       }
       console.log('Request sent successfully');
       setSuccessfulRequests(prevState => [...prevState, expertId]);
-      fetchExperts();
-      fetchuser();
+      fetchExperts(); // Refresh experts list
+      fetchuser(); // Refresh user information
     } catch (error) {
       console.error('Error sending request:', error);
     }
   };
-  
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-2 xl:grid-cols-2">
       {experts.map((expert) => (
@@ -101,9 +108,7 @@ export default function Experts()  {
             <p className="text-gray-600 mb-2">{expert.email}</p>
             <p className="text-gray-600 mb-4">{expert.description}</p>
             <button
-              className={`px-4 py-2 rounded ${
-                successfulRequests.includes(expert._id) ? 'bg-green-500' : 'bg-blue-500'
-              } text-white`}
+              className={`px-4 py-2 rounded ${successfulRequests.includes(expert._id) ? 'bg-green-500' : 'bg-blue-500'} text-white`}
               onClick={() => handleRequestChat(expert._id, expert.username)}
               disabled={successfulRequests.includes(expert._id)}
             >
@@ -116,5 +121,5 @@ export default function Experts()  {
         </div>
       ))}
     </div>
-  )
+  );
 }

@@ -1,97 +1,110 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';  // Assuming this is correct, otherwise adjust as needed
 import { io } from 'socket.io-client';
 
 export default function Chats() {
-  const { id } = useParams();
-  const [user, setUser] = useState({ chats: [] });
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
-  const [socket, setSocket] = useState(null);
-  const messagesEndRef = useRef(null);
+  const { id } = useParams(); // Fetching route parameter
+  const [user, setUser] = useState({ chats: [] }); // State for user data
+  const [error, setError] = useState(null); // State for error handling
+  const [loading, setLoading] = useState(true); // State for loading indicator
+  const [currentChat, setCurrentChat] = useState(null); // State for current chat room
+  const [messages, setMessages] = useState([]); // State for chat messages
+  const [newMessage, setNewMessage] = useState(''); // State for new message input
+  const [socket, setSocket] = useState(null); // State for socket connection
+  const messagesEndRef = useRef(null); // Ref for scrolling to bottom of messages
 
+  // Establishing socket connection and setting up event listeners
   useEffect(() => {
-    const newSocket = io('http://localhost:4000');
-    setSocket(newSocket);
+    const newSocket = io('http://localhost:4000'); // Connecting to socket server
+    setSocket(newSocket); // Setting socket in state
 
+    // Event listener for receiving new messages
     newSocket.on('receive_msg', (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
+      setMessages((prevMessages) => [...prevMessages, data]); // Adding new message to state
     });
 
+    // Event listener for receiving last 10 messages when joining chat
     newSocket.on('last_10_msgs', (data) => {
-      setMessages(data);
+      setMessages(data); // Setting initial messages when joining chat
     });
 
+    // Cleanup function to disconnect socket when component unmounts
     return () => {
       newSocket.disconnect();
     };
-  }, []);
+  }, []); // Empty dependency array means this effect runs only once, on mount
 
+  // Function to fetch user data from API
   const fetchUser = async () => {
     try {
-      const response = await fetch(`/api/user/${id}`);
+      const response = await fetch(`/api/user/${id}`); // Fetching user data based on id
       if (!response.ok) {
         throw new Error('Failed to fetch user');
       }
-      const data = await response.json();
-      setUser(data.user);
+      const data = await response.json(); // Parsing response JSON
+      setUser(data.user); // Setting user data in state
     } catch (error) {
-      setError('Error fetching user');
+      setError('Error fetching user'); // Handling fetch error
       console.error('Error fetching user:', error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Updating loading state
     }
   };
 
+  // Effect to fetch user data on component mount
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs once, on mount
 
+  // Effect to scroll to bottom of messages whenever messages change
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages]); // Dependency on 'messages' state
 
+  // Function to scroll to the bottom of the messages container
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   };
 
+  // Function to join a chat room
   const joinChatRoom = (chatId) => {
-    socket.emit('join_room', chatId);
-    setCurrentChat(chatId);
+    socket.emit('join_room', chatId); // Emitting 'join_room' event to server
+    setCurrentChat(chatId); // Updating current chat room state
   };
 
+  // Function to send a message
   const sendMessage = () => {
-    if (newMessage.trim() === '') return;
+    if (newMessage.trim() === '') return; // Ensuring message is not empty
     const messageData = {
-      roomId: currentChat,
-      message: newMessage,
+      roomId: currentChat, 
+      message: newMessage, 
       sent_by: user._id,
       name: user.username,
-      time: new Date(),
+      time: new Date(), 
     };
-    socket.emit('send_msg', messageData);
-    setMessages((prevMessages) => [...prevMessages, messageData]);
-    setNewMessage('');
+    socket.emit('send_msg', messageData); // Emitting 'send_msg' event with message data
+    setMessages((prevMessages) => [...prevMessages, messageData]); // Adding message to state
+    setNewMessage(''); // Clearing message input after sending
   };
 
+  // Function to disconnect from current chat room
   const disconnect = () => {
-    setCurrentChat(null);
-    socket.emit('leave_room', currentChat);
+    setCurrentChat(null); // Clearing current chat room
+    socket.emit('leave_room', currentChat); // Emitting 'leave_room' event to server
   };
 
+  // Rendering different UI based on loading state and current chat room
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Loading...</p>; // Displaying loading indicator
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p>{error}</p>; // Displaying error message if fetchUser encountered an error
   }
 
+  // Rendering chat interface if currentChat is set, otherwise rendering list of chats
   return (
     <div className="container mx-auto mt-8 px-4">
       {currentChat ? (
@@ -125,15 +138,11 @@ export default function Chats() {
             <button
               onClick={sendMessage}
               className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-            >
-              Send
-            </button>
+            > Send</button>
             <button
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-            onClick={disconnect}
-          >
-            Back
-          </button>
+              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+              onClick={disconnect}
+            > Back </button>
           </div>
         </div>
       ) : (

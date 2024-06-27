@@ -21,25 +21,6 @@ export default function Requests() {
     }
   };
 
-  const handleDeleteRequest = async (requestId) => {
-    try {
-      const response = await fetch(`/api/user/${id}/requests/${requestId}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete request');
-      }
-      // Update the user state by removing the deleted request
-      setUser((prevUser) => ({
-        ...prevUser,
-        requests: prevUser.requests.filter((request) => request._id !== requestId),
-      }));
-    } catch (error) {
-      setError('Error deleting request');
-      console.error('Error deleting request:', error);
-    }
-  };
-
   useEffect(() => {
     fetchUser();
   }, [id]); // Adding id as a dependency to ensure it runs when id changes
@@ -59,12 +40,6 @@ export default function Requests() {
             <li key={request._id} className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
               <p className="text-gray-800 mb-1"><strong>Name:</strong> {request.expertname}</p>
               <p className="text-gray-800 mb-2">{new Date(request.timeStamp).toLocaleString()}</p>
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                onClick={() => handleDeleteRequest(request._id)}
-              >
-                Delete
-              </button>
             </li>
           ))}
         </ul>

@@ -42,7 +42,6 @@ export default function Login() {
         // Handle error condition if needed
       }
     };
-
     fetchData();
   }, []);
 
@@ -171,13 +170,11 @@ export default function Login() {
       <div className={styles['toggle-container']}>
         <div className={styles.toggle}>
           <div className={`${styles['toggle-panel']} ${styles['toggle-left']}`}>
-            <h1>Welcome Back!</h1>
-            <p>Enter your personal details to use all of site features</p>
+            <p>Already Have An Account ?</p>
             <button className={styles.hidden} id="login" onClick={handleLoginClick}>Sign In</button>
           </div>
           <div className={`${styles['toggle-panel']} ${styles['toggle-right']}`}>
-            <h1>Hello, Friend!</h1>
-            <p>Register with your personal details to use all of site features</p>
+            <p>Dont Have An Account ?</p>
             <button className={styles.hidden} id="register" onClick={handleRegisterClick}>Sign Up</button>
           </div>
         </div>
