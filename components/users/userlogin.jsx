@@ -23,8 +23,7 @@ export default function Login() {
         const response = await fetch('/api/user/check-login', {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
-          },
+            'Content-Type': 'application/json' },
           credentials: 'include'
         });
 
