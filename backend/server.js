@@ -6,7 +6,7 @@ const httpServer = http.createServer();
 const connectmongodb = require("../libs/mongodb")
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000", //  frontend URL
+    origin: "https://chatroom-bse7.onrender.com", //  frontend URL
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,

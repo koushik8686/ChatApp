@@ -15,7 +15,7 @@ export default function Chats() {
 
   // Establishing socket connection and setting up event listeners
   useEffect(() => {
-    const newSocket = io('http://localhost:4000'); // Connecting to socket server
+    const newSocket = io('https://chatroom-1-vrmz.onrender.com'); // Connecting to socket server
     setSocket(newSocket); // Setting socket in state
 
     // Event listener for receiving new messages
