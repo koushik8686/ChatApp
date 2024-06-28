@@ -14,7 +14,7 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-  // console.log("A user connected:", socket.id);
+  console.log("A user connected:", socket.id);
   connectmongodb()
   var id
   socket.on("join_room", async (roomId) => {
