@@ -81,7 +81,7 @@ export default function Page() {
   };
 
   useEffect(() => {
-    const newSocket = io("https://chatroom-1-vrmz.onrender.com");
+    const newSocket = io();
     setSocket(newSocket);
 
     newSocket.on("receive_msg", (data) => {
