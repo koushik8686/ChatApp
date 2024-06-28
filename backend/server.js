@@ -6,7 +6,7 @@ const httpServer = http.createServer();
 const connectmongodb = require("../libs/mongodb")
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://chatroom-bse7.onrender.com", //  frontend URL
+    origin: "https://chat-room-9p333i7qg-pinnukoushikp-gmailcoms-projects.vercel.app/", //  frontend URL
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,
