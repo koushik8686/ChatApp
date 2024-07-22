@@ -5,6 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 This project is a chat application that allows users to connect with experts in real-time. Users can send requests to experts, and once accepted, both parties can engage in a chat. The application also sends email notifications to users when their requests are accepted.
 
+site live at https://chat-room-a72et9px9-pinnukoushikp-gmailcoms-projects.vercel.app/
+
 ## Features
 
 - Users can send requests to connect with experts.
